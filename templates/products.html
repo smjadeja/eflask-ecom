@@ -1,0 +1,53 @@
+{% extends 'common.html' %}
+{% block title %}
+<title>products</title>
+{% endblock %}
+
+{% block navtitle %}
+<span > Hi, {{user.first_name}} !</span>
+
+<span class="text-dark ">You have logged in as a {{rolename}}</span> 
+{% endblock %}
+
+{% block logout %}
+
+<a class="btn btn-sm btn-danger" href="/logout">Logout</a>
+
+{% endblock %}
+
+
+{% block body %}
+<div class="row">
+  <div class="container col-md-3">
+    <div class="col-md-3">
+      <div class="d-flex flex-column align-items-center text-center"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{user.first_name}}</span><span class="text-black-50">{{user.email}}</span><span> </span></div>
+  </div>
+  </div>
+  <div class="container col-md-3 p-3">
+    {% if user.role_id == 1 %}
+    <a href="/viewproduct" class="">View my products</a><br><br>
+    <a href="/sellhistory" class="">Sell History</a><br><br>
+    {% else %}
+    <a href="/viewproduct" class="">Buy products</a><br><br>
+    <a href="/orders" class="">Order history</a><br><br>
+    {% endif %}
+    <a href="/user/editprofile" class="">Update Profile</a><br><br>
+    <a href="/user/changepass" class="">Change Password</a><br><br>
+  </div>
+</div>
+
+
+<div>
+  <ul class=flashes>
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-success" role="alert">
+      {{ message }}
+    </div>
+    {% endfor %}
+  </ul>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

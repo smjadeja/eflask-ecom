@@ -1,0 +1,54 @@
+{% extends 'common.html' %} 
+
+{% block title %} 
+<title>Your Orders</title>
+{% endblock %} 
+
+
+{% block navtitle %}
+Your Orders
+{% endblock %} 
+
+
+{% block logout %} 
+<a href="/">Back to Home</a> &nbsp;
+<a class="btn btn-sm btn-danger" href="/logout">Logout</a>
+{% endblock %}
+
+
+{% block body %}
+<div class="p-3 border">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Order Unit</th>
+            <th scope="col">Order Total</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Purchased From </th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in  orders %}
+          <tr>
+            <th scope="row">#{{i.id}}</th>
+            <td>{{i.purchase_date}}</td>
+            <td>{{i.total_unit}}</td>
+            <td>{{Product.query.get(i.product_id).product_sell_price * i.total_unit }}</td>
+            <td style="max-width: 24px;"> {{ Product.query.get(i.product_id).product_name}}</td>
+            <td>{{ User.query.get(i.purchase_from_user).first_name}}</td>
+          </tr>
+          {% endfor %} 
+        </tbody>
+      </table>
+</div>
+{% if orders == [] %}
+<div class="container text-center mt-5">
+  <h3 class="text-info">You havent placed any orders.....</h3>
+</div>
+{% endif %} 
+
+
+{% endblock %} 
+

@@ -1,0 +1,37 @@
+{% extends 'common.html' %} 
+{% block title %} 
+<title>edit product</title>
+{% endblock %} 
+
+{% block navtitle %}
+Edit Product
+{% endblock %} 
+
+{% block logout %} 
+<a href="/">Back to Home</a> &nbsp;
+<a class="btn btn-sm btn-danger" href="/logout">Logout</a>
+{% endblock %}
+
+
+{% block body %} 
+<div class="m-5 col-md-4">
+    <form action="/editproduct/{{prod.id}}" method="POST" enctype="multipart/form-data">
+        <h2>Edit Product</h2>
+        <label for="">product name</label><br>
+        <input type="text" name="product" class="form-control" value="{{prod.product_name}}"><br>
+        <label for="">product desc</label><br>
+        <input type="text" name="prod_desc" class="form-control" value="{{prod.product_desc}}"><br>
+        <label for="">Product Image</label><br>
+        <input type="file" name="file" class="form-control" value=""><br>
+        <label for="">productsellprice</label><br>
+        <input type="text" name="sellprice" class="form-control" value="{{prod.product_sell_price}}"><br>
+        <label for="">productcostprice</label><br>
+        <input type="text" name="costprice" class="form-control" value="{{prod.product_cost_price}}"><br>
+        <label for="">stockunit</label><br>
+        <input type="number"  min="0" max="10" name="stockunit" class="form-control" value="{{prod.stock_unit}}"><br>
+        <button class="btn btn-sm btn-primary" type="submit">update prod</button>
+    </form>
+</div>
+
+{% endblock %} 
+

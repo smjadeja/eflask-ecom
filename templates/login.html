@@ -1,0 +1,41 @@
+{% extends 'common.html' %} 
+{% block title %} 
+<title>login</title>
+{% endblock %} 
+{% block navtitle %}
+<h3>Login</h3>
+{% endblock %}
+
+{% block body %} 
+<div class="container mt-5 col-md-4">
+    <form method="POST" action="/">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email"  name = email class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+          <div id="emailHelp" class="form-text">We'll always share your email with everyone and will made it public.</div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
+        </div>
+        <button type="submit" class="btn btn btn-primary">Login</button>
+      </form>
+      <div>
+        <p>If you don't have an account <a href="/signup">Register now</a></p>
+      </div>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+          <div class="alert alert-success" role="alert">
+          {{ message }}
+          </div>
+          {% endfor %}
+          </ul>
+          {% endif %}
+      {% endwith %}
+</div>
+
+{% endblock %}
+

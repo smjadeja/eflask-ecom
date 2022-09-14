@@ -1,0 +1,36 @@
+{% extends 'common.html' %} 
+
+{% block title %} 
+<title>orderplaced</title>
+{% endblock %} 
+
+
+{% block navtitle %}
+Your order
+{% endblock %} 
+
+
+{% block logout %} 
+<a href="/">Back to Home</a> &nbsp;
+<a class="btn btn-sm btn-danger"href="/logout">Logout</a>
+{% endblock %}
+
+{% block body %} 
+
+
+<div class="container col-md-3 p-3 border mt-3">
+<p> <strong>Order from Seller: </strong> {{seller}}</p> 
+<p> <strong> Order Id: </strong>1</p>
+<p> <strong>Order Date:</strong>  {{orderdate}}</p>
+<p> <strong>Order Qty:</strong>  {{quantity}}</p>
+<p> <strong>Product Name:</strong> {{prodname}}</p>
+<img src="/static/uploads/{{prodimg}}" alt="" class="w-50"><br><br>
+<p> <strong>Order Total: </strong> {{totalprice}}</p>
+<div class="alert alert-success">
+   <strong>Success!</strong> Your Order has been Placed Successfully
+ </div>
+</div>
+
+{% endblock %} 
+
+

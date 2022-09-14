@@ -1,0 +1,104 @@
+{% extends 'common.html' %} 
+{% block title %} 
+<title>Add product</title>
+{% endblock %} 
+
+{% block navtitle %}
+{% if buyer %}
+Availabel Products
+{% else %}
+Add Products
+{% endif %} 
+
+{% endblock %} 
+
+{% block logout %} 
+{% if buyer %} <a>Your Balance : <span class="text-success">{{buyer_balance}}</span> {% endif %}</a>&nbsp;
+<a href="/">Back to Home</a> &nbsp;
+<a class="btn btn-sm btn-danger" href="/logout">Logout</a>
+{% endblock %}
+
+{% block body %} 
+
+<div class="row" style="margin-left: 0; margin-right:0;">
+  {% if seller %} 
+<div class="w-25">
+      <form action="/addproduct" method="POST"  enctype="multipart/form-data" class="p-5 h-50">
+          
+           
+          <label for="">Product Name</label><br>
+          <input class="form-control form-control-sm "  type="text" name="prodname" required><br>
+          <label for="">Product Description</label><br>
+          <input class="form-control form-control-sm"  type="text" name="prod_desc" required><br>
+          <label for="">Product Image</label><br>
+          <!-- <input class="form-control file form-control-sm"  type="file" name="file" required accept="image/*"><br> -->
+          <input type="file" accept=".png, .jpg, .jpeg,.jfif, " name="file" required />
+          <label for="">Product Sell Price</label><br>
+          <input class="form-control form-control-sm"  type="number" min="1" max="3000" name="sellprice" required><br>
+          <label for="">Product Cost Price</label><br>
+          <input class="form-control form-control-sm"  type="number" min="1" max="3000" name="costprice" required><br>
+          <label for="">Stock Unit</label><br>
+          <input class="form-control form-control-sm"  type="number" name="stockunit"  min="0" max="10" required><br>
+          <button class="btn btn-primary btn-sm" type="submit">Add</button>
+          <div class="m-2 text-center">   
+              <a href="/">Back to Home</a>                
+          </div>
+          
+      <div>
+        <ul class=flashes>
+          {% for message in get_flashed_messages() %}
+          <div class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
+          {% endfor %}
+        </ul>
+      </div>
+      </form>
+
+</div>
+  {% endif %} 
+  <div class="w-75 p-5" style="display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;">
+      {% for prod in prods %} 
+          <div class="card m-2" style="font-size: 16px;">
+              <div class="card-body">
+  
+                <h5 class="card-title">Product : {{prod.product_name}}</h5>
+                <img src="{{prod.product_img}}" alt="">
+                <p class="card-text" style="max-height: 48px; overflow:hidden;" ><strong>Prodcut Description</strong> :  
+              {{prod.product_desc}}</p>
+                 </p>
+                <p class="card-text"> <strong>Product Sell Price :- </strong>&#8377; &nbsp;{{prod.product_sell_price}} &nbsp; {% if buyer %} <del style="font-size:18px; color:rgb(131, 131, 131)"> {{prod.product_sell_price + prod.product_sell_price*10/100}}</del>{% endif %} </p>
+
+                {% if seller %} <p class="card-text"><strong>Product Cost Price :- </strong>&#8377; &nbsp;{{prod.product_cost_price}}</p>  {% endif  %}
+                {% if prod.stock_unit == 0 %} 
+                <p class="card-text"> <strong>Status</strong> <span class="text-danger">Out of stock</span></p>
+                {% else %}
+                <p class="card-text"><strong>Status</strong> <span class="text-success"> In Stock</span></p>
+                <p class="card-text"><strong>Available Units:- </strong> &nbsp;{{prod.stock_unit}}</p> 
+                {% endif %} 
+                <img  src="/static/uploads/{{prod.product_img}}" alt="" class="w-50" style="max-height:150px ;"><br> <br>
+                {% if seller %}
+                <a href="/editproduct/{{prod.id}}" class="btn btn-sm btn-primary">edit</a>
+                <a href="/deleteprod/{{prod.id}}" class="btn btn-sm btn-danger">delete</a>
+                {% endif %} 
+                {% if buyer %} 
+                <form action="/buyproduct/{{prod.id}}" method="POST">
+                  {% if not prod.stock_unit == 0 %}
+                  <p>Select quantity</p>
+                  <input class="form-control input-sm" type="number" name="quantity" value="1" min="1" max="{{prod.stock_unit}}" required><br>
+                  <button class="btn btn-primary" type="submit">Buy now</button>
+                  {% endif %}
+                </form>
+                {% endif %}  
+              </div>
+          </div>
+      {% endfor %} 
+  </div>
+
+</div>
+    
+
+
+{% endblock %} 

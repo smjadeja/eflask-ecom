@@ -1,0 +1,29 @@
+{% extends 'common.html' %} 
+
+{% block title %} 
+<title>purchase page</title>
+{% endblock %} 
+
+{% block navtitle %}
+Place order
+{% endblock %} 
+
+{% block logout %} 
+<a href="/">Back to Home</a> &nbsp;
+<a class="btn btn-sm btn-danger" href="/logout">Logout</a>
+{% endblock %}
+
+{% block body %} 
+
+<div class="container col-md-3 p-3 border mt-3">
+    <form action="/placeorder/{{prod.id}}" method="POST">
+        <p><strong> <span style="color: rgb(95, 95, 95);">Product Quantity</span>  </strong>  <br><input type="number" name="quantity" value="{{quantity}}" readonly></p>
+        <p><strong> <span style="color: rgb(95, 95, 95);">Product Name</span>  </strong>  &nbsp;{{prod.product_name}}</p>
+        <p><strong> <span style="color: rgb(95, 95, 95);">Product Description</span>  </strong> <br> &nbsp; &nbsp;{{prod.product_desc}}</p><br>
+        <img src="/static/uploads/{{prod.product_img}}" alt=""  class="w-50"><br><br>
+        <p><strong> <span style="color: rgb(95, 95, 95);">Total Amount : -</span>  </strong>  &nbsp;{{quantity * prod.product_sell_price}}</p>
+        <button class="btn btn-success" type="submit">Place order</button>
+    </form>
+</div>
+{% endblock %} 
+

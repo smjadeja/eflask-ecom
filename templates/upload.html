@@ -1,0 +1,33 @@
+{% extends 'common.html' %} 
+
+{% block title %} 
+<title>Upload media</title>
+{% endblock %} 
+
+
+{% block navtitle %}
+Upload Image
+{% endblock %} 
+
+
+{% block logout %} 
+<a href="/">Back to Home</a> &nbsp;
+<a class="btn btn-sm btn-danger" href="/logout">Logout</a>
+{% endblock %}
+
+
+{% block body %} 
+
+<div class="container">
+
+    <form action="/upload"  method="POST" class="form-lg" enctype="multipart/form-data">
+    <div class="custom-file">
+        <label for="">Upload your file</label><br>
+        <input type="file" name="file">
+        <button type="submit">Upload</button>
+    </div>
+      </form>
+</div>
+
+{% endblock %} 
+

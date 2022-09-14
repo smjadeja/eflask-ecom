@@ -1,0 +1,55 @@
+{% extends 'common.html' %} 
+
+{% block title %} 
+<title>sellhistory</title>
+{% endblock %} 
+
+
+{% block navtitle %}
+Sell History
+{% endblock %} 
+
+
+{% block logout %} 
+<a href="/">Back to Home</a>  &nbsp;
+<a class="btn btn-sm btn-danger" href="/logout">Logout</a>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="w-100 p-3 border">
+    <table class="table w-100">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Order Unit</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Purchased by</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            {% for i in sell_list %}
+          <tr>           
+            <th scope="row">{{i.id}}</th>
+            <td>{{i.purchase_date}}</td>
+            <td>{{i.total_unit}}</td>
+            <td>{{i.total_unit * Product.query.get(i.product_id).product_sell_price }}</td>            
+            <td style="max-height: 48px; overflow:hidden;" >{{ Product.query.get(i.product_id).product_name}}</td>            
+            <td style="max-height: 48px; overflow:hidden;" >{{User.query.get(i.purchase_by_user).first_name}}</td>
+          </tr>
+          {% endfor %} 
+        </tbody>
+      </table>
+</div>
+<div class="container text-center mt-5">
+  {% if sell_list == [] %} 
+  <h3 class="text-info">You haven't Sold any products yet....</h3>
+  {% endif %}
+</div>
+
+
+{% endblock %} 
