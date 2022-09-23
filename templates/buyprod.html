@@ -14,7 +14,6 @@ Place order
 {% endblock %}
 
 {% block body %} 
-
 <div class="container col-md-3 p-3 border mt-3">
     <form action="/placeorder/{{prod.id}}" method="POST">
         <p><strong> <span style="color: rgb(95, 95, 95);">Product Quantity</span>  </strong>  <br><input type="number" name="quantity" value="{{quantity}}" readonly></p>

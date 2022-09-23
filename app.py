@@ -8,7 +8,7 @@ from datetime import datetime, date
 import os
 import re
 from werkzeug.utils import secure_filename
-from flask_migrate import Migrate
+
 from uuid import uuid4
 regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
@@ -16,7 +16,7 @@ regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///buysell.db'
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+
 app.secret_key  = os.urandom(24)
 
 UPLOAD_FOLDER = 'static/uploads'
